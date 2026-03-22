@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&display=swap');
+
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #eaeaea;
+    --text-primary: #121212;
+    --text-secondary: #666666;
+    --accent-black: #000000;
+    --accent-white: #ffffff;
+    
+    --border-color: #e5e5e5;
+    --border-thick: 2px;
+    --border-thin: 1px;
+    
+    --transition-fast: 0.2s ease;
+    
+    --navbar-height: 70px;
+    --sidebar-width: 280px;
+
+    --font-default: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-header: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-seri;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    font-family: var(--font-default);
+}

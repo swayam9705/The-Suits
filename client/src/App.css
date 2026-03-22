@@ -1,0 +1,31 @@
+@import "./styles/variables.css";
+
+/* contains global css */
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    font-family: var(--font-default);
+}
+
+a {
+    color: var(--text-secondary);
+}
+
+.logo {
+    font-size: 1.2rem;
+    font-family: var(--font-header);
+    font-weight: 800;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    color: var(--accent-black);
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+}
+
+.logo-icon {
+    font-size: 2rem;
+}

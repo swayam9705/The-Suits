@@ -1,0 +1,122 @@
+@import "./variables.css";
+
+.ui-element {
+    box-sizing: border-box;
+    font-family: var(--font-default);
+    transition: all var(--transition-fast);
+}
+
+.ui-button-primary, 
+.ui-button-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 0;
+    border: none;
+}
+
+.ui-button-primary {
+    background-color: var(--accent-black);
+    color: var(--accent-white);
+}
+
+.ui-button-primary:hover {
+    background-color: var(--text-secondary);
+}
+
+.ui-button-secondary {
+    background-color: transparent;
+    color: var(--text-primary);
+    border: var(--border-thin) solid var(--border-color);
+}
+
+.ui-button-secondary:hover {
+    background-color: var(--bg-secondary);
+    border-color: var(--text-primary);
+}
+
+.ui-input-group, 
+.ui-select {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 300px;
+}
+
+.ui-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+}
+
+.ui-input, 
+.ui-select select {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 1rem;
+    background-color: var(--bg-primary);
+    border: var(--border-thin) solid var(--border-color);
+    color: var(--text-primary);
+    outline: none;
+    appearance: none;
+}
+
+.ui-input:focus, 
+.ui-select select:focus {
+    border-color: var(--accent-black);
+}
+
+.ui-select {
+    position: relative;
+}
+
+.ui-select::after {
+    content: "↓";
+    position: absolute;
+    right: 16px;
+    bottom: 14px;
+    font-size: 0.8rem;
+    pointer-events: none;
+    color: var(--text-secondary);
+}
+
+.ui-select option {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* --- INPUT WITH ACTION --- */
+.ui-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.ui-input-action-btn {
+    position: absolute;
+    right: 8px;
+    background: var(--bg-secondary);
+    border: var(--border-thin) solid var(--border-color);
+    padding: 6px 12px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.ui-input-action-btn:hover {
+    background: var(--accent-black);
+    color: var(--accent-white);
+}
+
+.ui-input-with-action {
+    padding-right: 100px !important;
+}
