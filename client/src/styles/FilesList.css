@@ -1,0 +1,105 @@
+.files-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* background-color: var(--bg-sec); */
+}
+
+.files-header {
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--border-thin) solid var(--border-color);
+}
+
+.section-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+}
+
+.add-file-btn {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: transform var(--transition-fast);
+}
+
+.add-file-btn:hover {
+    transform: scale(1.1);
+}
+
+.files-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+}
+
+.file-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.active-indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: var(--accent-black);
+}
+
+.file-icon {
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+}
+
+.file-item.active .file-icon {
+    color: var(--accent-black);
+}
+
+.file-name {
+    flex: 1;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-item.active .file-name {
+    color: var(--accent-black);
+    font-weight: 700;
+}
+
+/* Three-dot menu hidden until hover */
+.file-actions-trigger {
+    opacity: 0;
+    color: var(--text-secondary);
+    transition: opacity var(--transition-fast);
+}
+
+.file-item:hover .file-actions-trigger {
+    opacity: 1;
+}
+
+.empty-files {
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}

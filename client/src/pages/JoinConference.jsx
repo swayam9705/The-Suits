@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { Button, Input } from "../components/ui"
 import "../styles/JoinConference.css"
 
@@ -8,6 +8,9 @@ const AVATAR_COLORS = [
 ]
 
 const JoinConference = () => {
+
+    const navigate = useNavigate()
+
     const [ formData, setFormData ] = useState({
         conferenceId: "",
         username: "",
@@ -30,18 +33,19 @@ const JoinConference = () => {
 
     const handleJoin = e => {
         e.preventDefault()
+        navigate(`/conferenceroom/${formData.conferenceId}`)
         console.log("Joining with: ", formData)
     }
 
     return (
         <div className="join-page-wrapper">
-            <form className="join-card">
-                <header className="join-header">
+            <form className="normal-form">
+                <header className="normal-form-header">
                     <h1>Enter Workspace</h1>
                     <p>Collaborate instantly. No sign-up bullsh*t required.</p>
                 </header>
 
-                <div className="join-form">
+                <div className="normal-form-container">
                     <Input
                         label="Conference ID"
                         placeholder="e.g. monolith-alpha-99"

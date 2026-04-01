@@ -2,7 +2,8 @@
 
 :root {
     --bg-primary: #ffffff;
-    --bg-secondary: #eaeaea;
+    --bg-secondary: #f7f7f7;
+    --bg-tertiary: rgb(192, 192, 192);
     --text-primary: #121212;
     --text-secondary: #666666;
     --accent-black: #000000;

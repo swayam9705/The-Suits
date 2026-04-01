@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router';
 import { Input, Button } from '../components/ui'
-import { Link } from 'react-router';
 
 const AVATAR_COLORS = ['#000000', '#666666', '#FF5733', '#33FF57', '#3357FF', '#F333FF'];
 
 const CreateConference = () => {
+
+    const navigate = useNavigate()
+
     const [formData, setFormData] = useState({
         conferenceId: '',
         username: '',
@@ -32,19 +35,22 @@ const CreateConference = () => {
 
     const handleCreate = (e) => {
         e.preventDefault();
+
+        navigate(`/conferenceRoom/${formData.conferenceId}`)
+        
         console.log("Creating Workspace:", formData);
         // Redirect to /editor/:conferenceId
     };
 
     return (
         <div className="join-page-wrapper">
-            <form className="join-card">
-                <header className="join-header">
+            <form className="normal-form">
+                <header className="normal-form-header">
                     <h1>Create Workspace</h1>
                     <p>Start a new collaborative session instantly.</p>
                 </header>
 
-                <div className="join-form">
+                <div className="normal-form-container">
                     <div className="ui-input-group">
                         <label className="ui-label">Conference ID</label>
                         <div className="ui-input-wrapper">

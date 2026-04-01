@@ -8,6 +8,8 @@
 
 .ui-button-primary, 
 .ui-button-secondary {
+    min-width: 200px;
+    max-width: 400px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -119,4 +121,28 @@
 
 .ui-input-with-action {
     padding-right: 100px !important;
+}
+
+.ui-color-picker {
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+}
+
+.color-swatch {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.color-swatch:hover {
+    transform: scale(1.1);
+}
+
+.color-swatch.active {
+    border-color: var(--accent-black);
+    transform: scale(1.2);
 }
