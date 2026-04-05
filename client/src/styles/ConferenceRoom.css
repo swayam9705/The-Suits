@@ -1,0 +1,327 @@
+.conference-room-wrapper {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    overflow: hidden;
+}
+
+/* Sidebar Styling */
+.conference-sidebar {
+    width: var(--sidebar-width, 280px);
+    /* background-color: var(--bg-secondary); */
+    height: 600px;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 24px 20px;
+    gap: 32px;
+}
+
+.sidebar-section h3 {
+    font-size: 0.8rem;
+    font-family: var(--font-header);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* File List */
+.file-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 40vh;
+    overflow-y: auto;
+}
+
+.file-item {
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: var(--transition-fast, 0.2s ease);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--text-primary);
+    background: transparent;
+    border: 1px solid transparent;
+}
+
+.file-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.file-item.active {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    font-weight: 500;
+}
+
+.file-item-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+    flex: 1;
+}
+
+.file-item-info svg {
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.file-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transition: var(--transition-fast, 0.2s ease);
+}
+
+.file-item:hover .file-actions,
+.file-item.active .file-actions {
+    opacity: 1;
+}
+
+.action-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast, 0.2s ease);
+}
+
+.action-btn:hover {
+    color: var(--text-primary);
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.action-btn.delete-btn:hover {
+    color: #d32f2f;
+    background-color: rgba(211, 47, 47, 0.1);
+}
+
+/* Rename/Create File Forms */
+.rename-form,
+.create-file-form {
+    flex: 1;
+    display: flex;
+    margin: 0;
+    gap: 8px;
+}
+
+.rename-input,
+.create-file-input {
+    width: 100%;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    padding: 6px 10px;
+    border-radius: 4px;
+    outline: none;
+    font-family: inherit;
+    transition: var(--transition-fast, 0.2s ease);
+}
+
+.rename-input:focus,
+.create-file-input:focus {
+    border-color: var(--text-primary);
+}
+
+.create-file-btn {
+    background: var(--accent-black);
+    border: none;
+    color: var(--accent-white);
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition-fast, 0.2s ease);
+}
+
+.create-file-btn:hover {
+    opacity: 0.8;
+}
+
+.new-file-btn {
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: var(--transition-fast, 0.2s ease);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px dashed var(--border-color);
+    margin-top: 8px;
+}
+
+.new-file-btn:hover {
+    background: rgba(0, 0, 0, 0.02);
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+}
+
+/* Members List */
+.members-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.member-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.95rem;
+    padding: 6px 8px;
+    border-radius: 6px;
+    transition: var(--transition-fast, 0.2s ease);
+}
+
+.member-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.member-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg-primary);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* End Conference Section */
+.end-conference-section {
+    margin-top: auto;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.copy-id-btn,
+.end-conference-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: var(--transition-fast, 0.2s ease);
+}
+
+.copy-id-btn {
+    background: var(--accent-black);
+    color: var(--accent-white);
+    border: 1px solid var(--accent-black);
+}
+
+.copy-id-btn:hover {
+    opacity: 0.8;
+}
+
+.end-conference-btn {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.end-conference-btn:hover {
+    background-color: var(--accent-black);
+    color: var(--accent-white);
+    border-color: var(--accent-black);
+}
+
+/* Main Section */
+.conference-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: var(--bg-primary);
+}
+
+.editor-header {
+    height: 70px;
+    background: #fafafa;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    font-size: 1.2rem;
+    font-family: var(--font-header);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.editor-area {
+    flex: 1;
+    padding: 32px;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    resize: none;
+    outline: none;
+    font-family: var(--font-default);
+}
+
+.editor-area::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.6;
+}
+
+.empty-state,
+.loading-state {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    flex-direction: column;
+    gap: 16px;
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    color: var(--border-color);
+    margin-bottom: 16px;
+}

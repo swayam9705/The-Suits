@@ -31,29 +31,3 @@
     background-color: var(--bg-primary);
     padding: 40px;
 }
-
-.join-card {
-    width: 100%;
-    max-width: 420px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-.join-header h1 {
-    font-family: var(--font-header);
-    font-size: 2rem;
-    font-weight: 800;
-    margin-bottom: 8px;
-}
-
-.join-header p {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    font-style: italic;
-}
-
-.join-form {
-    display: grid;
-    gap: 20px;
-}

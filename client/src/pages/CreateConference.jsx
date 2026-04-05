@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Input, Button } from '../components/ui'
-import { Link } from 'react-router';
-
+import { Link, useNavigate } from 'react-router';
+import { createConference, joinConference } from '../firebase/services';
 const AVATAR_COLORS = ['#000000', '#666666', '#FF5733', '#33FF57', '#3357FF', '#F333FF'];
 
 const CreateConference = () => {
@@ -11,13 +11,16 @@ const CreateConference = () => {
         avatarColor: AVATAR_COLORS[0],
         isPrivate: false
     });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const generateId = () => {
-        const adjectives = ['silent', 'focused', 'bold', 'clear', 'vivid'];
-        const nouns = ['monolith', 'stone', 'page', 'word', 'flow'];
+        const adjectives = ['silent', 'focused', 'bold', 'clear', 'vivid', 'great', "adorable", "adventurous", "beautiful", "brave", "calm", "clever", "happy", "kind", "smart"];
+        const nouns = ['monolith', 'stone', 'page', 'word', 'flow', 'river', 'mountain', 'ocean', 'forest', 'desert', 'sky', 'star', 'moon', 'sun', 'rain'];
         const num = Math.floor(Math.random() * 1000);
         const newId = `${adjectives[Math.floor(Math.random() * adjectives.length)]}-${nouns[Math.floor(Math.random() * nouns.length)]}-${num}`;
-        
+
         setFormData(prev => ({ ...prev, conferenceId: newId }));
     };
 
@@ -30,25 +33,47 @@ const CreateConference = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleCreate = (e) => {
+    const handleCreate = async (e) => {
         e.preventDefault();
-        console.log("Creating Workspace:", formData);
-        // Redirect to /editor/:conferenceId
+        setLoading(true);
+        setError('');
+        try {
+            // Create conference
+            await createConference(formData.conferenceId, formData.username);
+
+            // Join as admin
+            const memberData = await joinConference(
+                formData.conferenceId,
+                formData.username,
+                formData.avatarColor,
+                true // is_admin
+            );
+
+            // Store user data in localStorage so conference room knows who this is
+            localStorage.setItem(`conference_${formData.conferenceId}_memberId`, memberData.id);
+
+            // Redirect to conference room
+            navigate(`/conferenceRoom/${formData.conferenceId}`);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <div className="join-page-wrapper">
-            <form className="join-card">
-                <header className="join-header">
+            <form className="normal-form">
+                <header className="normal-form-header">
                     <h1>Create Workspace</h1>
                     <p>Start a new collaborative session instantly.</p>
                 </header>
 
-                <div className="join-form">
+                <div className="normal-form-content">
                     <div className="ui-input-group">
                         <label className="ui-label">Conference ID</label>
                         <div className="ui-input-wrapper">
-                            <Input 
+                            <Input
                                 name="conferenceId"
                                 value={formData.conferenceId}
                                 onChange={handleChange}
@@ -56,8 +81,8 @@ const CreateConference = () => {
                                 placeholder="name-your-workspace"
                                 required
                             />
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 className="ui-input-action-btn"
                                 onClick={generateId}
                             >
@@ -65,13 +90,15 @@ const CreateConference = () => {
                             </button>
                         </div>
                     </div>
-                    
-                    <Input 
-                        label="Your Admin Alias" 
+
+                    {error && <p className="ui-error-msg" style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
+
+                    <Input
+                        label="Your Admin Alias"
                         name="username"
                         value={formData.username}
                         onChange={handleChange}
-                        placeholder="e.g. Editor-in-Chief" 
+                        placeholder="e.g. Editor-in-Chief"
                         required
                     />
 
@@ -79,7 +106,7 @@ const CreateConference = () => {
                         <label className="ui-label">Avatar Color</label>
                         <div className="ui-color-picker">
                             {AVATAR_COLORS.map(color => (
-                                <button 
+                                <button
                                     type="button"
                                     key={color}
                                     className={`color-swatch ${formData.avatarColor === color ? 'active' : ''}`}
@@ -90,10 +117,11 @@ const CreateConference = () => {
                         </div>
                     </div>
 
-                    <Button 
+                    <Button
                         onClick={handleCreate}
+                        disabled={loading}
                     >
-                        Start Conference
+                        {loading ? 'Creating...' : 'Start Conference'}
                     </Button>
 
                     <span className="join-footer">
