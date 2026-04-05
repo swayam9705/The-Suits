@@ -37,28 +37,30 @@ button {
     font-size: 2rem;
 }
 
+/* forms */
+
 .normal-form {
     width: 100%;
-    max-width: 500px;
+    max-width: 420px;
     display: flex;
     flex-direction: column;
     gap: 24px;
 }
 
-.normal-form-header h1, .header {
+.normal-form-header h1 {
     font-family: var(--font-header);
     font-size: 2rem;
     font-weight: 800;
     margin-bottom: 8px;
 }
 
-.normal-form-header p {
+.normal-form p {
     color: var(--text-secondary);
     font-size: 0.9rem;
     font-style: italic;
 }
 
-.normal-form-container {
+.normal-form-content {
     display: grid;
     gap: 20px;
 }

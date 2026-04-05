@@ -10,6 +10,7 @@ import JoinConference from "./pages/JoinConference"
 import ConferenceRoom from "./pages/ConferenceRoom"
 
 function App() {
+
 	return (
 		<div className='app'>
 			<Routes>
@@ -17,6 +18,7 @@ function App() {
 					<Route index element={<Home />} />
 					<Route path="/createConference" element={<CreateConference />} />
 					<Route path="/joinConference" element={<JoinConference />} />
+					<Route path="/conferenceRoom/:conf_id" element={<ConferenceRoom />} />
 					<Route path="/accessFiles" element={<AccessFiles />} />
 					<Route path="/conferenceRoom/:conf_id" element={<ConferenceRoom />}  />
 					<Route path="*" element={<Navigate to="/" />} />

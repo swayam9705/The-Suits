@@ -1,0 +1,56 @@
+.file-card {
+    background: var(--bg-primary);
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+}
+
+.file-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* margin-bottom: 20px; */
+}
+
+.file-card-title {
+    margin: 0;
+    font-family: var(--font-header);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.file-card-download-btn {
+    background: var(--accent-black);
+    color: var(--accent-white);
+    border: 1px solid var(--accent-black);
+    padding: 8px 24px;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: var(--font-default);
+    font-weight: 600;
+    transition: var(--transition-fast);
+}
+
+.file-card-download-btn:hover {
+    background: var(--bg-primary);
+    color: var(--accent-black);
+}
+
+.file-card-content {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    /* sharp edges */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: monospace;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    max-height: 250px;
+    overflow-y: auto;
+}
