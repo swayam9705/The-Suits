@@ -40,11 +40,11 @@ const AccessFiles = () => {
 
     if (files !== null) {
         return (
-            <div className="access-files" style={{ padding: '40px', maxWidth: '800px', margin: '0 auto' }}>
-                <h1 style={{ fontFamily: 'var(--font-header)', marginBottom: '20px' }}>Files from {conferenceId}</h1>
-                <Button onClick={() => setFiles(null)} style={{ marginBottom: '20px' }}>Back</Button>
+            <div className="access-files">
+                <h1>Files from {conferenceId}</h1>
+                <Button onClick={() => setFiles(null)}>Back</Button>
                 {files.length === 0 ? <p>No files were created during this conference.</p> : (
-                    <div className="file-grid" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                    <div className="file-grid">
                         {files.map(file => (
                             <FileCard key={file.id} file={file} />
                         ))}

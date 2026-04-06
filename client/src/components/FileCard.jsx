@@ -22,9 +22,6 @@ const FileCard = ({ file }) => {
                     Download
                 </button>
             </div>
-            {/* <pre className="file-card-content">
-                {file.content || 'Empty file'}
-            </pre> */}
         </div>
     );
 };

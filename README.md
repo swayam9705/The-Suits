@@ -7,8 +7,8 @@ The Suits is a high-end editorial environment for real-time collaboration. By re
 
 ## 🛠 Tech Stack
 - **Frontend:** React.js (Vite)
-- **Backend/Real-time:** Supabase (Database, Real-time engine, and Storage)
-- **Routing:** React Router v6
+- **Backend/Real-time:** Firebase (Database, Real-time engine, and Storage)
+- **Routing:** React Router
 
 ---
 
@@ -17,7 +17,7 @@ The Suits is a high-end editorial environment for real-time collaboration. By re
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/swayam9705/The-Suits.git
-cd editorial-monolith
+cd The-Suits
 ```
 
 ### 2. Install Dependencies
@@ -27,11 +27,17 @@ npm install
 ```
 
 ### 3. Environment Setup
-Create a `.env` file in the root directory and add your Supabase credentials:
+Create a `.env` file in the root directory and add your Firebase credentials:
 
 ```bash
-VITE_SUPABASE_URL=your_supabase_project_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_APIKEY=
+VITE_AUTHDOMAIN=
+VITE_RPOJECTID=
+VITE_STORAGEBUCKET=
+VITE_MESSAGINGSENDERID=
+VITE_APPID=
+VITE_MEASUREMENTID=
+VITE_DATABASEURL=
 ```
 
 ### 3. Run the Project
@@ -42,8 +48,6 @@ npm run dev
 ### Features
 * No Registration: Start a session and invite collaborators instantly via a Conference ID.
 
-* Ephemeral Storage: Files are mapped to the session, not a user profile.
+* Ephemeral Storage: Files are mapped to the conference, not a user profile.
 
 * Brutalist Interface: A white-walled gallery design focused entirely on typography.
-
-* Auto-Purge Logic: (Optional) Configure Supabase pg_cron to wipe session data after 48 hours of inactivity.

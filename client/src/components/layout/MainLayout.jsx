@@ -48,8 +48,8 @@ const MainLayout = () => {
                     </div>
                     
                     <nav className="footer-nav">
-                        <Link to="#">DEVELOPERS</Link>
-                        <Link to="#">SOURCE CODE</Link>
+                        <Link to="https://github.com/swayam9705">DEVELOPERS</Link>
+                        <Link to="https://github.com/swayam9705/The-Suits">SOURCE CODE</Link>
                         <span className="copyright">© { currentYear }</span>
                     </nav>
                 </div>

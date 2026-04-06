@@ -1,1 +1,0 @@
-// Custom logic to talk to supabase database
