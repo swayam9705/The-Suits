@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import { db } from '../firebase/config';
 import { ref, onValue } from 'firebase/database';
-import { createFile, updateFileContent, renameFile, deleteFile, endConferenceDb } from '../firebase/services';
+import { createFile, updateFileContent, renameFile, deleteFile, endConferenceDb, updateMemberCursor, leaveConferenceDb } from '../firebase/services';
+import { getCaretCoordinates } from '../utils/getCaretCoordinates';
 import { FileText, Plus, Users, Trash2, Edit2, LogOut, Check, X, Copy } from 'lucide-react';
 import '../styles/ConferenceRoom.css';
 
@@ -23,6 +24,9 @@ const ConferenceRoom = () => {
     const [editingFileName, setEditingFileName] = useState('');
 
     const [copied, setCopied] = useState(false);
+
+    const textareaRef = useRef(null);
+    const [cursorCoords, setCursorCoords] = useState({});
 
     // Current user member id
     const currentMemberId = localStorage.getItem(`conference_${conf_id}_memberId`);
@@ -90,8 +94,16 @@ const ConferenceRoom = () => {
         }
     };
 
+    const handleCursorActivity = (e) => {
+        const pos = e.target.selectionStart;
+        if (pos !== undefined && activeFileId && currentMemberId) {
+            updateMemberCursor(conf_id, currentMemberId, activeFileId, pos);
+        }
+    };
+
     const handleContentChange = (e) => {
         const newContent = e.target.value;
+        handleCursorActivity(e);
         if (activeFileId) {
             // Update local optimistically
             setFiles(prev => ({
@@ -150,11 +162,42 @@ const ConferenceRoom = () => {
         }
     };
 
+    const handleLeaveConference = async () => {
+        try {
+            await leaveConferenceDb(conf_id, currentMemberId);
+            localStorage.removeItem(`conference_${conf_id}_memberId`);
+            navigate('/');
+        } catch (err) {
+            console.error("Error leaving conference:", err);
+        }
+    };
+
     const handleCopyId = () => {
         navigator.clipboard.writeText(conf_id);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
+
+    const filesList = Object.values(files);
+    const membersList = Object.values(members);
+    const activeFile = activeFileId ? files[activeFileId] : null;
+
+    useEffect(() => {
+        if (!textareaRef.current || !activeFile) {
+            setCursorCoords({});
+            return;
+        }
+
+        const coords = {};
+        membersList.forEach(m => {
+            if (m.id !== currentMemberId && m.activeFileId === activeFileId && typeof m.cursorPosition === 'number') {
+                const pos = Math.min(m.cursorPosition, activeFile.content.length);
+                const posCoords = getCaretCoordinates(textareaRef.current, pos);
+                coords[m.id] = posCoords;
+            }
+        });
+        setCursorCoords(coords);
+    }, [members, activeFile?.content, activeFileId, currentMemberId]);
 
     if (loading) return <div className="loading-state">Loading Conference...</div>;
 
@@ -175,10 +218,6 @@ const ConferenceRoom = () => {
             </div>
         );
     }
-
-    const filesList = Object.values(files);
-    const membersList = Object.values(members);
-    const activeFile = activeFileId ? files[activeFileId] : null;
 
     return (
         <div className="conference-room-wrapper">
@@ -273,12 +312,17 @@ const ConferenceRoom = () => {
                 <div className="sidebar-section end-conference-section">
                     <button className="copy-id-btn" onClick={handleCopyId}>
                         {copied ? <Check size={16} /> : <Copy size={16} />}
-                        {copied ? 'Copied!' : 'Copy Conference ID'}
+                        {copied ? 'Copied!' : conf_id}
                     </button>
-                    {members[currentMemberId]?.is_admin && (
+                    {members[currentMemberId]?.is_admin ? (
                         <button className="end-conference-btn" onClick={handleEndConference}>
                             <LogOut size={16} />
                             End Conference
+                        </button>
+                    ) : (
+                        <button className="leave-conference-btn" onClick={handleLeaveConference}>
+                            <LogOut size={16} />
+                            Leave Conference
                         </button>
                     )}
                 </div>
@@ -290,12 +334,53 @@ const ConferenceRoom = () => {
                         <header className="editor-header">
                             {activeFile.name}
                         </header>
-                        <textarea
-                            className="editor-area"
-                            value={activeFile.content}
-                            onChange={handleContentChange}
-                            placeholder="Start typing..."
-                        />
+                        <div style={{ position: 'relative', flex: 1, display: 'flex', overflow: 'hidden' }}>
+                            <textarea
+                                ref={textareaRef}
+                                className="editor-area"
+                                value={activeFile.content}
+                                onChange={handleContentChange}
+                                onSelect={handleCursorActivity}
+                                onKeyUp={handleCursorActivity}
+                                onClick={handleCursorActivity}
+                                placeholder="Start typing..."
+                            />
+                            {Object.entries(cursorCoords).map(([memberId, coords]) => {
+                                const member = members[memberId];
+                                if (!member) return null;
+                                return (
+                                    <div
+                                        key={memberId}
+                                        style={{
+                                            position: 'absolute',
+                                            top: coords.top,
+                                            left: coords.left,
+                                            height: coords.height,
+                                            width: '2px',
+                                            backgroundColor: member.color,
+                                            pointerEvents: 'none',
+                                            zIndex: 10
+                                        }}
+                                    >
+                                        <div style={{
+                                            position: 'absolute',
+                                            top: '-20px',
+                                            left: '0',
+                                            backgroundColor: member.color,
+                                            color: '#fff',
+                                            fontSize: '12px',
+                                            padding: '2px 6px',
+                                            borderRadius: '4px',
+                                            whiteSpace: 'nowrap',
+                                            fontWeight: '600',
+                                            userSelect: 'none'
+                                        }}>
+                                            {member.user_alias}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </>
                 ) : (
                     <div className="empty-state">

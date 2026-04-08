@@ -66,6 +66,19 @@ export const joinConference = async (conf_id, user_alias, color, is_admin = fals
     return memberData;
 };
 
+export const leaveConferenceDb = async (conf_id, memberId) => {
+    const memberRef = ref(db, `members/${conf_id}/${memberId}`);
+    await remove(memberRef);
+};
+
+export const updateMemberCursor = async (conf_id, memberId, activeFileId, cursorPosition) => {
+    const memberRef = ref(db, `members/${conf_id}/${memberId}`);
+    await update(memberRef, {
+        activeFileId,
+        cursorPosition
+    });
+};
+
 // ===============
 // FILE
 // ===============
