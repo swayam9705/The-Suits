@@ -73,7 +73,7 @@ const JoinConference = () => {
             <form className="normal-form">
                 <header className="normal-form-header">
                     <h1>Enter Workspace</h1>
-                    <p>Collaborate instantly. No sign-up bullsh*t required.</p>
+                    <p>Collaborate instantly. No sign-up required.</p>
                 </header>
 
                 <div className="normal-form-content">

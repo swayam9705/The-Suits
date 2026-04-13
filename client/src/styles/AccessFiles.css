@@ -15,7 +15,7 @@
 
 .access-files .file-grid {
     display: grid;
-    grid-template-columns: repeat(2, 400px);
+    grid-template-columns: repeat(2, 250px);
     grid-template-rows: 80px;
     grid-gap: 20px;
 }

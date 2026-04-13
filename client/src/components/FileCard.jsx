@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import { ArrowDownToLine } from "lucide-react"
 import '../styles/FileCard.css';
 
 const FileCard = ({ file }) => {
@@ -8,7 +9,7 @@ const FileCard = ({ file }) => {
         const fileExt = file.type === 'markdown' ? 'md' : 'txt';
         const fileBlob = new Blob([fileContent], { type: 'text/plain' });
         element.href = URL.createObjectURL(fileBlob);
-        element.download = `${file.name}.${fileExt}`;
+        element.download = `${file.name}`;
         document.body.appendChild(element);
         element.click();
         document.body.removeChild(element);
@@ -17,9 +18,9 @@ const FileCard = ({ file }) => {
     return (
         <div className="file-card">
             <div className="file-card-header">
-                <h3 className="file-card-title">{file.name}</h3>
+                <h3 className="file-card-title">{file.name.length > 10 ? file.name.slice(0, 10) : file.name}</h3>
                 <button className="file-card-download-btn" onClick={handleDownload}>
-                    Download
+                    <ArrowDownToLine />
                 </button>
             </div>
         </div>
